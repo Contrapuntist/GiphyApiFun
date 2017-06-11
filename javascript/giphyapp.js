@@ -2,7 +2,9 @@ $(document).ready(function() {
 
 var gifapp = {
 
-	topics: ['puppies', 'kitties', 'baby+goats'],
+	topics: ['puppies', 'kitties', 'baby goats'],
+	userInput: null,
+	searchlimit: null, 
 
 	btnsRender: function() {
 
@@ -14,31 +16,40 @@ var gifapp = {
         // Loop through the array of movies, then generate buttons for each movie in the array 
 
         for (var i = 0; i < this.topics.length; i++ ) { 
-          var gifbtn = '<button>' + [i] + '</button>'; 
-          $('#gifbtn').append(gifbtn);
+          var btn = '<button>' + [this.topics[i]] + '</button>'; 
+          $('#gifbtns').append(btn).attr('btn-data', this.topics[i]);
           console.log(this.topics[i]);
         }
+    },
 
-      }
-
-
-
-
-
+    makeImg: function(n) {
+    	
+    	var newimg = $('<img>');
+    	newimg.attr('src', response.data[0].images.downsized.url);
+    	console.log(response.data[0].images.downsized.url);
+    	$('#gifscontainer').append(newimg);
+    }   
 }
 	// ie. serach http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC   
 
+	gifapp.btnsRender();
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
-    var 
 
     $.ajax({
       url: queryURL,
       method: 'GET'
     }).done(function(response) {
     	console.log(response); 
-    	$('#jsonshow').text(JSON.stringify(response)); 
+    	// $('#jsonshow').text(JSON.stringify(response)); 
 
-    	$('#gifscontainer').append()
+    	var newimg = $('<img>');
+    	newimg.attr('src', response.data[0].images.downsized.url);
+    	console.log(response.data[0].images.downsized.url);
+    	
+    	//$('.gifscontainer').html('<img src="' + response.data[0].images.downsized.url + '">' );
+    	
+    	$('.gifscontainer').append(newimg);
+
     }); 
 
 
@@ -50,17 +61,18 @@ var gifapp = {
         event.preventDefault();
 
         // Write code to grab the text the user types into the input field
-        var userInput = ($('#movie-input').val());
+        gifapp.userInput = ($('#movie-input').val());
         // Write code to add the new movie into the movies array
-        movies.push(userInput);
+        gifapp.topics.push(userInput);
         // The renderButtons function is called, rendering the list of movie buttons
-        renderButtons();
+        gifapp.btnsRender();
       });
 
       // Calling the renderButtons function to display the initial list of movies
-      renderButtons();
-    </script>
-
-
+      
+      $('button').on('click', function() {
+      	gifapp.userInput = $(this).attr('btn-data');
+      	console.log(gifapp.userInput);
+      });
 
 });  
