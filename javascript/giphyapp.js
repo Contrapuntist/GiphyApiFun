@@ -29,7 +29,7 @@ var gifapp = {
     	for (var i = 0; i < gifapp.searchlimit; i++) {
 	    	var newimg = $('<img>');
 	    	newimg.attr('src', response.data[i].images.downsized.url);
-	    	console.log(response.data[i].images.downsized.url);
+	    	// console.log(response.data[i].images.downsized.url);
 	    	$('#gifscontainer').append(newimg);
 	    } 
     }   
@@ -45,7 +45,7 @@ var gifapp = {
     }).done(function(response) {
     	console.log(response); 
     	gifapp.makeImg(response);
-    	
+
 
     	// $('#jsonshow').text(JSON.stringify(response)); 
 
@@ -62,12 +62,16 @@ var gifapp = {
         // retrieves btn-value from button on cliick 
         gifapp.userInput = $(this).attr('btn-value');
         console.log(gifapp.userInput);
-
-        gifapp.topics.push(gifapp.userInput);
-        console.log(gifapp.topics);
         
-        // call function to rerender buttons with new value
-        gifapp.btnsRender();
+        // condition to prevent undefined value from creating button
+
+        if (gifapp.userInput != undefined) {
+	        gifapp.topics.push(gifapp.userInput);
+	        console.log(gifapp.topics);
+
+	        // call function to rerender buttons with new value
+	        gifapp.btnsRender(); 
+    	}
       });
 
       // Calling the renderButtons function to display the initial list of movies
