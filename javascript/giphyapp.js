@@ -46,39 +46,36 @@ var gifapp = {
     	console.log(response); 
     	gifapp.makeImg(response);
 
-
     	// $('#jsonshow').text(JSON.stringify(response)); 
 
 
     }); 
 
 
-      // This function handles events where the add movie button is clicked
-      $('button').on("click", function(event) {
+    $('#searchbtn').on('click', function() { 
+    	event.preventDefault();
+    	gifapp.userInput = $('#searchinput').val().trim();
+    	console.log(gifapp.userInput);
+        // condition to prevent undefined value from creating button
+		if (gifapp.userInput != undefined) {
+	       	gifapp.topics.push(gifapp.userInput);
+	       	console.log(gifapp.topics);	
+	    }
+
+    	// call function to rerender buttons with new value
+	    gifapp.btnsRender();
+    
+    });
+
+    // This function handles events where the add movie button is clicked
+    $('button').on("click", function(event) {
       	
       	// prevents event default action
         event.preventDefault();
 
         // retrieves btn-value from button on cliick 
-        gifapp.userInput = $(this).attr('btn-value');
-        console.log(gifapp.userInput);
-        
-        // condition to prevent undefined value from creating button
+        gifapp.userInput = $(this).val().trim();    
 
-        if (gifapp.userInput != undefined) {
-	        gifapp.topics.push(gifapp.userInput);
-	        console.log(gifapp.topics);
-
-	        // call function to rerender buttons with new value
-	        gifapp.btnsRender(); 
-    	}
       });
-
-      // Calling the renderButtons function to display the initial list of movies
-      
-      // $('button').on('click', function() {
-      // 	gifapp.userInput = $(this).attr('btn-data');
-      // 	console.log(gifapp.userInput);
-      //});
 
 });  
