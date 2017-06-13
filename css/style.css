@@ -7,9 +7,28 @@ button {
 	width: 175px;
 	padding: 10px 20px;
 	margin-bottom: 5px;
+	border-radius: 15px 50px
 } 
+
+button:hover {
+	background-color: #eeeeee;
+}
 
 img {
 	width: 250px;
-	margin: 0 25px 20px 25px;
+} 
+
+.topmargin20 {
+	margin-top: 20px;
+} 
+
+.gifs-box {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+} 
+
+.gifdiv {
+	width: 250px;
+	margin: 0 25px 20px 25px;	
 }

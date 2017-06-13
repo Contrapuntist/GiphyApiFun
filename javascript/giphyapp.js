@@ -1,46 +1,58 @@
 $(document).ready(function() { 
 
-var gifapp = {
+	var gifapp = {
 
-	topics: ['puppies', 'kitties', 'baby goats'],
-	userInput: null,
-	searchlimit: 10, 
-	queryURL: 'null',
+		topics: ['baby turtles', 'baby pigs', 'puppies', 'kitties', 'baby goats', 'baby sloths', 'baby pandas', 'baby bunnies', 'bear cubs', 'ducklings'],
+		userInput: null,
+		searchlimit: 10, 
+		queryURL: 'null',
 
-	btnsRender: function() {
+		btnsRender: function() {
 
-        // Delete the content inside the movies-view div prior to adding new movies
-        // (this is necessary otherwise you will have repeat buttons)
+	        // Delete the content inside the movies-view div prior to adding new movies
+	        // (this is necessary otherwise you will have repeat buttons)
 
-        $('#gifbtns').empty();  
-        
-        // Loop through the array of movies, then generate buttons for each movie in the array 
+	        $('#gifbtns').empty();  
+	        
+	        // Loop through the array of movies, then generate buttons for each movie in the array 
 
-        for (var i = 0; i < this.topics.length; i++ ) { 
-          var giftopic = this.topics[i];
+	        for (var i = 0; i < this.topics.length; i++ ) { 
+	          var giftopic = this.topics[i];
 
-          var btn = $('<button>' + giftopic + '</button>' );
-          btn.addClass('gifbtn').attr('btn-topic', giftopic); 
-          $('#gifbtns').append(btn);
-          console.log(giftopic);
-        }
-    },
+	          var btn = $('<button>' + giftopic + '</button>' );
+	          btn.addClass('gifbtn').attr('btn-topic', giftopic); 
+	          $('#gifbtns').append(btn);
+	          console.log(giftopic);
+	        }
+	    },
 
-    makeImg: function(response) {
-    	$('#gifscontainer').empty(); 
-    	for (var i = 0; i < gifapp.searchlimit; i++) {
-	    	var newimg = $('<img>');
-	    	newimg.attr('src', response.data[i].images.original_still.url)
-	    	.addClass('gif')
-	    	.attr('gif-still', response.data[i].images.downsized_still.url)
-	    	.attr('gif-animate', response.data[i].images.downsized.url)
-	    	.attr('gif-state', 'still');
-	    	// console.log(response.data[i].images.downsized.url);
-	    	$('#gifscontainer').append(newimg);
-	    } 
-    }   
-}
-	// ie. serach http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC   
+	    makeImg: function(response) {
+	    	$('#gifscontainer').empty(); 
+	    	for (var i = 0; i < gifapp.searchlimit; i++) {
+		    	
+		    	var newdiv = $('<div>');
+		    	var newimg = $('<img>');
+		    	var newh2 = $('<h2>');
+		    	
+		    	newimg.attr('src', response.data[i].images.original_still.url)
+		    	.addClass('gif')
+		    	.attr('gif-still', response.data[i].images.downsized_still.url)
+		    	.attr('gif-animate', response.data[i].images.downsized.url)
+		    	.attr('gif-state', 'still');
+		    	
+		    	newh2.append(response.data[i].rating);
+		    	console.log('rating is: ' + newh2);
+
+		    	// console.log(response.data[i].images.downsized.url);
+		    	newdiv.addClass('gifdiv').append(newimg).append(newh2);
+
+
+
+		    	$('#gifscontainer').append(newdiv);
+		    } 
+	    }   
+	}
+	// ie. search http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC
 
 	gifapp.btnsRender();
     var queryURLtest = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
@@ -109,4 +121,4 @@ var gifapp = {
     	}
     });
 
-});  
+});
