@@ -32,8 +32,8 @@ var gifapp = {
 	    	var newimg = $('<img>');
 	    	newimg.attr('src', response.data[i].images.original_still.url)
 	    	.addClass('gif')
-	    	.attr('gif-still', response.data[i].images.original_still.url)
-	    	.attr('gif-animate', response.data[i].images.original.url)
+	    	.attr('gif-still', response.data[i].images.downsized_still.url)
+	    	.attr('gif-animate', response.data[i].images.downsized.url)
 	    	.attr('gif-state', 'still');
 	    	// console.log(response.data[i].images.downsized.url);
 	    	$('#gifscontainer').append(newimg);
@@ -43,17 +43,16 @@ var gifapp = {
 	// ie. serach http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC   
 
 	gifapp.btnsRender();
-    //var queryURL = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
+    var queryURLtest = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
 
-    // $.ajax({
-    //   url: queryURL,
-    //   method: 'GET'
-    // }).done(function(response) {
-    // 	console.log(response); 
-    // 	gifapp.makeImg(response);
+    // used for getting object info in console only
+    $.ajax({
+      url: queryURLtest,
+      method: 'GET'
+    }).done(function(response) {
+    	console.log(response); 
 
-    	// $('#jsonshow').text(JSON.stringify(response)); 
-    //}); 
+    }); 
 
 
     $('#searchbtn').on('click', function() { 
@@ -90,19 +89,24 @@ var gifapp = {
 		    }).done(function(response) {
 		    	console.log(response); 
 		    	gifapp.makeImg(response);
-
 		   	// $('#jsonshow').text(JSON.stringify(response)); 
-
 		    }); 
-
       }); 
 
 
-    $('#gifscontainer').on('click', '.gifs', function() {
-    	var pauseState = $(this).attr(gif-state);
+    $('#gifscontainer').on('click', '.gif', function() {
+    	console.log(this);
+    	var pauseState = $(this).attr('gif-state');
     	console.log(pauseState); 
 
-    	//if () { }
+    	if (pauseState === 'still') { 
+    		$(this).attr('src', $(this).attr('gif-animate'));
+    		$(this).attr('gif-state', 'animate');
+    	} else { 
+    		console.log(pauseState);
+    		$(this).attr('src', $(this).attr('gif-still'));
+    		$(this).attr('gif-state', 'still');
+    	}
     });
 
 });  
