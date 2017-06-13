@@ -5,6 +5,7 @@ var gifapp = {
 	topics: ['puppies', 'kitties', 'baby goats'],
 	userInput: null,
 	searchlimit: 10, 
+	queryURL: 'null',
 
 	btnsRender: function() {
 
@@ -19,16 +20,21 @@ var gifapp = {
           var giftopic = this.topics[i];
 
           var btn = $('<button>' + giftopic + '</button>' );
-          btn.addClass('gifbtn').attr('btn-value', giftopic); 
+          btn.addClass('gifbtn').attr('btn-topic', giftopic); 
           $('#gifbtns').append(btn);
           console.log(giftopic);
         }
     },
 
     makeImg: function(response) {
+    	$('#gifscontainer').empty(); 
     	for (var i = 0; i < gifapp.searchlimit; i++) {
 	    	var newimg = $('<img>');
-	    	newimg.attr('src', response.data[i].images.downsized.url);
+	    	newimg.attr('src', response.data[i].images.original_still.url)
+	    	.addClass('gif')
+	    	.attr('gif-still', response.data[i].images.original_still.url)
+	    	.attr('gif-animate', response.data[i].images.original.url)
+	    	.attr('gif-state', 'still');
 	    	// console.log(response.data[i].images.downsized.url);
 	    	$('#gifscontainer').append(newimg);
 	    } 
@@ -37,19 +43,17 @@ var gifapp = {
 	// ie. serach http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC   
 
 	gifapp.btnsRender();
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
+    //var queryURL = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
 
-    $.ajax({
-      url: queryURL,
-      method: 'GET'
-    }).done(function(response) {
-    	console.log(response); 
-    	gifapp.makeImg(response);
+    // $.ajax({
+    //   url: queryURL,
+    //   method: 'GET'
+    // }).done(function(response) {
+    // 	console.log(response); 
+    // 	gifapp.makeImg(response);
 
     	// $('#jsonshow').text(JSON.stringify(response)); 
-
-
-    }); 
+    //}); 
 
 
     $('#searchbtn').on('click', function() { 
@@ -68,14 +72,37 @@ var gifapp = {
     });
 
     // This function handles events where the add movie button is clicked
-    $('button').on("click", function(event) {
-      	
+    $('#gifbtns').on("click", '.gifbtn' , function() {
+      	console.log(this);
       	// prevents event default action
-        event.preventDefault();
+        //event.preventDefault();
 
         // retrieves btn-value from button on cliick 
-        gifapp.userInput = $(this).val().trim();    
+        gifapp.userInput = $(this).attr('btn-topic');    
+        //console.log(gifapp.userInput);
 
-      });
+   		gifapp.queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gifapp.userInput + "&api_key=dc6zaTOxFJmzC";  
+   		console.log(gifapp.queryURL);
+
+        $.ajax({
+		    url: gifapp.queryURL,
+		    method: 'GET'
+		    }).done(function(response) {
+		    	console.log(response); 
+		    	gifapp.makeImg(response);
+
+		   	// $('#jsonshow').text(JSON.stringify(response)); 
+
+		    }); 
+
+      }); 
+
+
+    $('#gifscontainer').on('click', '.gifs', function() {
+    	var pauseState = $(this).attr(gif-state);
+    	console.log(pauseState); 
+
+    	//if () { }
+    });
 
 });  
