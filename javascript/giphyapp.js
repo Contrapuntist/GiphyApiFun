@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	var gifapp = {
 
-		topics: ['baby turtles', 'baby pigs', 'puppies', 'kitties', 'baby goats', 'baby sloths', 'baby pandas', 'baby bunnies', 'bear cubs', 'ducklings'],
+		topics: ['baby turtles', 'baby pigs', 'puppies', 'kittens', 'baby goats', 'baby sloths', 'baby pandas', 'baby bunnies', 'bear cubs', 'owlets' ],
 		userInput: null,
 		searchlimit: 10, 
 		queryURL: 'null',
@@ -40,7 +40,7 @@ $(document).ready(function() {
 		    	.attr('gif-animate', response.data[i].images.downsized.url)
 		    	.attr('gif-state', 'still');
 		    	
-		    	newh2.append(response.data[i].rating);
+		    	newh2.html('Rating: ' + response.data[i].rating);
 		    	console.log('rating is: ' + newh2);
 
 		    	// console.log(response.data[i].images.downsized.url);
@@ -52,6 +52,7 @@ $(document).ready(function() {
 		    } 
 	    }   
 	}
+
 	// ie. search http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC
 
 	gifapp.btnsRender();
@@ -105,7 +106,7 @@ $(document).ready(function() {
 		    }); 
       }); 
 
-
+    // event to click state of container   
     $('#gifscontainer').on('click', '.gif', function() {
     	console.log(this);
     	var pauseState = $(this).attr('gif-state');
