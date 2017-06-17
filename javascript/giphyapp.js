@@ -55,7 +55,6 @@ $(document).ready(function() {
 	// ie. search http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC
 
 	gifapp.btnsRender();
-    var queryURLtest = "http://api.giphy.com/v1/gifs/search?q=puppies&api_key=dc6zaTOxFJmzC";  // public api key: dc6zaTOxFJmzC 
 
     // used for getting object info in console only
     $.ajax({
@@ -92,7 +91,7 @@ $(document).ready(function() {
         gifapp.userInput = $(this).attr('btn-topic');    
         //console.log(gifapp.userInput);
 
-   		gifapp.queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gifapp.userInput + "&api_key=dc6zaTOxFJmzC";  
+   		gifapp.queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifapp.userInput + "&api_key=dc6zaTOxFJmzC";  
    		console.log(gifapp.queryURL);
 
         $.ajax({
