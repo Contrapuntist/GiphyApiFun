@@ -22,7 +22,6 @@ $(document).ready(function() {
 	          var btn = $('<button>' + giftopic + '</button>' );
 	          btn.addClass('gifbtn').attr('btn-topic', giftopic); 
 	          $('#gifbtns').append(btn);
-	          console.log(giftopic);
 	        }
 	    },
 
@@ -83,38 +82,37 @@ $(document).ready(function() {
 
     // This function handles events where the add movie button is clicked
     $('#gifbtns').on("click", '.gifbtn' , function() {
-      	console.log(this);
-      	// prevents event default action
-        //event.preventDefault();
-
+      	
         // retrieves btn-value from button on cliick 
         gifapp.userInput = $(this).attr('btn-topic');    
         //console.log(gifapp.userInput);
 
    		gifapp.queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifapp.userInput + "&api_key=dc6zaTOxFJmzC";  
-   		console.log(gifapp.queryURL);
+   		
 
         $.ajax({
 		    url: gifapp.queryURL,
 		    method: 'GET'
 		    }).done(function(response) {
-		    	console.log(response); 
+		    	//console.log(response); 
 		    	gifapp.makeImg(response);
-		   	// $('#jsonshow').text(JSON.stringify(response)); 
+		   	   
+
+		   	   // $('#jsonshow').text(JSON.stringify(response)); 
 		    }); 
       }); 
 
     // event to click state of container   
     $('#gifscontainer').on('click', '.gif', function() {
-    	console.log(this);
+    	
     	var pauseState = $(this).attr('gif-state');
-    	console.log(pauseState); 
+    	
 
     	if (pauseState === 'still') { 
     		$(this).attr('src', $(this).attr('gif-animate'));
     		$(this).attr('gif-state', 'animate');
     	} else { 
-    		console.log(pauseState);
+    		
     		$(this).attr('src', $(this).attr('gif-still'));
     		$(this).attr('gif-state', 'still');
     	}
