@@ -1,21 +1,38 @@
-body {
-	margin-top: 25px;
+html {
+     height: 150%;
 }
 
+body {
+	
+	background: #0b3c5d;
+	color: #ffffff;
+}
+
+
+h1, h2 { 
+	color: #AF2508;
+ }
 
 button {
 	width: 175px;
 	padding: 10px 20px;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
+	background-color: #1d2731;
+	border-color: #d9b310;
+	color: #d9b310;
+	font-size: 16px;
 	border-radius: 15px 50px
+
 } 
 
 button:hover {
-	background-color: #eeeeee;
+	background-color: #328cc1;
 }
 
 img {
-	width: 250px;
+	width: 240px;
+	margin: 5px;
+	
 } 
 
 .topmargin20 {
@@ -30,5 +47,17 @@ img {
 
 .gifdiv {
 	width: 250px;
-	margin: 0 25px 20px 25px;	
+	height:  110%;
+	margin: 0 25px 20px 25px;
+	background-color: #328cc1;
+	border-radius: 5px;
+	position: relative;
+} 
+
+.rating {
+	margin-left: 5px;
+	color: #d9b310;
+	position: relative;
+	bottom: 0;
+	left: 0;
 }

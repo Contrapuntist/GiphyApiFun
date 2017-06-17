@@ -40,10 +40,9 @@ $(document).ready(function() {
 		    	.attr('gif-animate', response.data[i].images.downsized.url)
 		    	.attr('gif-state', 'still');
 		    	
-		    	newh2.html('Rating: ' + response.data[i].rating);
-		    	console.log('rating is: ' + newh2);
+		    	newh2.html('Rating: ' + response.data[i].rating)
+		    	.addClass('rating');
 
-		    	// console.log(response.data[i].images.downsized.url);
 		    	newdiv.addClass('gifdiv').append(newimg).append(newh2);
 
 
